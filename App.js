@@ -17,7 +17,7 @@ const corsOptions = {
         const allowedOrigins = [
             'http://localhost:3000',
             'http://localhost:5173',
-            'https://your-frontend-domain.netlify.app'
+            'https://hellofittrackpro.netlify.app'
         ];
 
         if (!origin || allowedOrigins.includes(origin)) {
