@@ -5,6 +5,7 @@ const compression = require('compression');
 const cors = require('cors');
 const authRoutes = require('./Routes/Auth');
 const workoutRoutes = require('./Routes/Workouts');
+const adminRoutes = require('./Routes/Admin');
 const securityConfig = require('./Configuration/Security');
 const app = express();
 
@@ -59,6 +60,7 @@ app.get('/health', (req, res) => {
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/workouts', workoutRoutes);
 app.use('/api/v1/users', require('./Routes/Users'));
+app.use('/api/v1/admin', adminRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

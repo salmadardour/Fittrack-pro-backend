@@ -65,6 +65,17 @@ const userSchema = new mongoose.Schema({ // creates a blueprint for user data
         default: 'private'
     },
 
+    // Admin system fields
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
+    },
+    suspended: {
+        type: Boolean,
+        default: false
+    },
+
     avatar: String,
     isEmailVerified: {
         type: Boolean,
@@ -74,7 +85,8 @@ const userSchema = new mongoose.Schema({ // creates a blueprint for user data
         type: Boolean,
         default: true
     },
-    lastLogin: Date
+    lastLogin: Date,
+    lastLoginAt: Date
 }, {
     timestamps: true, // adds 'created at' and 'updated at' fields
     toJSON: { virtuals: true },
@@ -87,6 +99,9 @@ userSchema.virtual('fullName').get(function () {
 
 userSchema.index({ email: 1 }, { unique: true });
 userSchema.index({ isActive: 1 });
+userSchema.index({ role: 1 });
+userSchema.index({ suspended: 1 });
+userSchema.index({ lastLoginAt: 1 });
 
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return next();
@@ -99,6 +114,16 @@ userSchema.pre('save', async function (next) {
         next(error);
     }
 });
+
+// Check if user is suspended before login
+userSchema.methods.isSuspended = function () {
+    return this.suspended === true;
+};
+
+// Check if user is admin
+userSchema.methods.isAdmin = function () {
+    return this.role === 'admin';
+};
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password); // adds methods for password checking
