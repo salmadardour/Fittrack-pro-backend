@@ -61,6 +61,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/workouts', workoutRoutes);
 app.use('/api/v1/users', require('./Routes/Users'));
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/measurements', require('./Routes/Measurements'));
 
 // 404 handler
 app.use('*', (req, res) => {
