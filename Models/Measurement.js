@@ -25,13 +25,29 @@ const measurementSchema = new mongoose.Schema({
         type: Number,
         min: [0, 'Muscle mass cannot be negative']
     },
-    measurements: {
-        chest: Number,
-        waist: Number,
-        hips: Number,
-        biceps: Number,
-        thighs: Number,
-        neck: Number
+    chest: {
+        type: Number,
+        min: [0, 'Chest measurement cannot be negative']
+    },
+    waist: {
+        type: Number,
+        min: [0, 'Waist measurement cannot be negative']
+    },
+    hips: {
+        type: Number,
+        min: [0, 'Hips measurement cannot be negative']
+    },
+    biceps: {
+        type: Number,
+        min: [0, 'Biceps measurement cannot be negative']
+    },
+    thighs: {
+        type: Number,
+        min: [0, 'Thighs measurement cannot be negative']
+    },
+    neck: {
+        type: Number,
+        min: [0, 'Neck measurement cannot be negative']
     },
     notes: {
         type: String,
